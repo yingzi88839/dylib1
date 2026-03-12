@@ -3,23 +3,24 @@ name: Build iOS dylib
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Build dylib
-        run: |
-          echo "Building iOS dylib..."
-          clang++ -dynamiclib -std=c++11 -arch arm64 -o MapHack.dylib main.mm -framework Foundation -framework UIKit -Wl,-install_name,@rpath/MapHack.dylib
-          ls -la
+    - name: Build the dylib
+      run: |
+        xcodebuild -project YourProjectName.xcodeproj -scheme YourSchemeName -configuration Release build
+        # 或者如果是用 Swift 包管理的
+        # swift build -c release
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: MapHack.dylib
-          path: MapHack.dylib
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: MyDylib
+        path: ./build/Release/*.dylib
