@@ -1,0 +1,9 @@
+Package: com.junshi.cheat
+Name: JunshiCheat
+Depends: mobilesubstrate, preferenceloader
+Version: 1.0.0
+Architecture: iphoneos-arm64 iphoneos-arm64e
+Description: 军师超自然作弊插件
+Maintainer: Your Name
+Author: Your Name
+Section: Tweaks
